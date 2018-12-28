@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <script>
+function confirmDelete() {
+  var txt;
+  var r = confirm("Delete Movie?");
+  return r;
+}
+</script>
+</head>
+
+<body>
+<h2> Welcome to Bookmyshow..</h2>
+
+<form action="{{ url_for('index')}}" method="post" name="myform">
+
+
+        <table border="1">
+            <tr>
+                <td colspan="2" align="center">Movie Details</td>
+            </tr>
+        <!-- movie_id: <input type="text" name="movie_id"><br><br>-->
+            <tr><td>Movie Name:*</td><td>&nbsp<input type="text" name="movie_name" ></td></tr>
+        <tr><td>Timing:</td><td>&nbsp<input type="time" name="timing" id="myTime" value="00:00:00"></td></tr>
+        <tr><td>Location:*</td><td>&nbsp<input type="text" name="location" ></td></tr>
+        <tr><td colspan="2" align="center"><button type="submit" onclick="return validateform()"> Add Movie </button></td></tr>
+            </table>
+
+
+</form>
+
+    <br>
+    <br>
+
+<table border="1">
+    <th> Movie Id</th>
+    <th> Movie Name</th>
+    <th> Timing</th>
+    <th> Location</th>
+    <th colspan="2">Actions</th>
+
+
+    {% for i in mylist %}
+    <tr>
+        <td>{{i.0}}</td>
+        <td>{{i.1}}</td>
+        <td>{{i.2}}</td>
+        <td>{{i.3}}</td>
+
+
+        <td >
+              <form class="hidden" method="post" action="{{ url_for('update_movie', movie_id=i.0) }}">
+              <button class="btn btn-outline-danger update">Edit</button>
+            </form>
+        </td>
+               <td>
+                <form class="hidden" method="post" action="{{ url_for('delete_movie', movie_id=i.0) }}">
+                  <button class="btn btn-outline-danger delete" onclick="return confirmDelete()">Delete</button>
+            </form>
+
+            </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+<script>
+                function validateform(){
+                    var movie_name=document.myform.movie_name.value;
+                    var location=document.myform.location.value;
+
+                    if (movie_name==null || movie_name==""){
+                          alert("Movie Name can't be blank");
+                            return false;
+                    }else if(location==null || location==""){
+                          alert("Location can't be blank");
+                             return false;
+                        }
+
+
+                    document.getElementById("myTime").defaultValue = "12:00";
+                    }
+</script>
+
+</body>
+</html>

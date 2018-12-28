@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Update Details</title>
+</head>
+<body>
+<form method="post" action="{{ url_for('update_action', movie_id=ulist.0.0) }}">
+ Movie Id:&nbsp<input name="movie_id" value={{ulist.0.0}} disabled>
+<br><br>
+    Movie Name:&nbsp<input type="text" name="movie_name" value="{{ulist.0.1}}">
+<br><br>
+ Timing:&nbsp<input name="timing" value={{ulist.0.2}}>
+<br><br>
+Location:&nbsp<input name="location" value="{{ulist.0.3}}">
+<br><br>
+<button type="submit" value="update">Update</button>
+</form>
+
+</body>
+</html>
